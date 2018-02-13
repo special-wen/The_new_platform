@@ -1,0 +1,7 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+    欢迎你，{{ current_user.username }}
+    <a href="/">退出后台</a><br>
+    {% block truebody %}{% endblock %}
+{% endblock %}

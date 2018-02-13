@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+<div>
+<a id='user' href=""></a>
+</div>
+
+</body>
+<script>
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if(xmlhttp.readyState==4){
+            var res = JSON.parse(xmlhttp.responseText);
+            href = document.getElementById('user');
+            href.href = res.url;
+            href.innerHTML = "Login";
+        }
+    }
+    xmlhttp.open("GET","/api/base/login",true);
+	xmlhttp.send();
+</script>
+</html>

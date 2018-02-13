@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="/admin/static/bootstrap/bootstrap3/swatch/default/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+    {% block headscript %}{% endblock %}
+</head>
+<body>
+{% if current_user.is_anonymous %}
+    请<a href="{{ url_for('main.login') }}">登录</a>
+{% else %}
+    欢迎<a href="">{{ current_user.username }}</a>
+    {% if current_user.power %}
+        <a href="/admin">进入后台</a>
+    {% endif %}
+    <a href="{{ url_for('auth.logout') }}">退出登录</a>
+{% endif %}
+{% block body %}
+<a href="{{ url_for('main.sign_in') }}">打卡签到</a>
+<a>我要开面</a>
+{% endblock %}
+</body>
+{% block tailscript %}{% endblock %}
+    <script src="/admin/static/vendor/jquery.min.js?v=2.1.4" type="text/javascript"></script>
+    <script src="/admin/static/bootstrap/bootstrap3/js/bootstrap.min.js?v=3.3.5" type="text/javascript"></script>
+<!--
+ background:City-Zero
+ front end:special-wen
+ -->
+</html>

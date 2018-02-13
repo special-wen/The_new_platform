@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block body %}
+    学号：<input type="text" id="stu_num" onblur="stu_msg()">
+    <button id="submit" onclick="sub()">提交</button>
+    <div id="stu_msg"></div>
+{% endblock %}
+
+{% block tailscript %}
+<script>
+function stu_msg() {
+    let xhr = new XMLHttpRequest();
+    let stu_num = document.getElementById('stu_num');
+    let stu_msg = document.getElementById('stu_msg');
+    let data = {"stu_num":stu_num.value};
+    xhr.onreadystatechange = function () {
+        if(xhr.readyState == 4 && xhr.status==200){
+            let json = JSON.parse(xhr.responseText);
+            if(json.status){
+                stu_msg.innerText="";
+                stu_msg.innerText = xhr.responseText;
+            }
+        }
+    };
+    xhr.open('GET','{{ url_for('api.interviewer') }}?stu_num='+stu_num.value);
+    xhr.send();
+}
+
+function sub() {
+    let xhr = new XMLHttpRequest();
+    let stu_num = document.getElementById('stu_num');
+    let data = {"stu_num":stu_num.value};
+    xhr.onreadystatechange = function () {
+        if(xhr.status == 200 && xhr.readyState == 4){
+            let json = JSON.parse(xhr.responseText);
+            if(json.status == true){
+                alert(json.msg);
+            }else{
+                alert(json.msg);
+            }
+        }
+    };
+    xhr.open('POST','{{ url_for('api.add_signin') }}');
+    xhr.setRequestHeader("Content-Type",'application/json;charset=utf-8');
+    xhr.send(JSON.stringify(data));
+}
+</script>
+{% endblock %}
